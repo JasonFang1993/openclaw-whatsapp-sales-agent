@@ -1,20 +1,26 @@
 const express = require('express');
-const config = require('./config');
-const { setupWebhook } = require('./webhook');
-const apiRoutes = require('./routes/api');
+require('dotenv').config();
 
 const app = express();
-
 app.use(express.json());
 
-app.use('/api', apiRoutes);
-
-setupWebhook(app);
+// Import routes
+const whatsapp = require('./whatsapp');
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
+    res.json({ status: 'ok' });
 });
 
-app.listen(config.server.port, () => {
-  console.log(`WhatsApp Sales Agent running on port ${config.server.port}`);
+app.get('/qr', (req, res) => {
+    res.json({ message: 'Check server console for QR code' });
+});
+
+app.post('/send', async (req, res) => {
+    const { to, message } = req.body;
+    res.json({ message: 'Use WhatsApp Web directly' });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`WhatsApp Sales Agent running on port ${PORT}`);
 });

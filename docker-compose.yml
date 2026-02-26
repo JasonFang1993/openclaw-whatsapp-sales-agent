@@ -12,6 +12,8 @@ services:
       - WAHA_INCOMING_QUEUE=false
       - WAHA_WEBHOOKS_URL=http://host.docker.internal:3000/webhook
       - WAHA_SESSION_SAVE_INTERVAL=2000
+      - WAHA_AUTH=washa
+      - WAHA_AUTH_ADMIN_PASSWORD=admin123
     volumes:
       - ./waha-data:/app/sessions
     restart: unless-stopped
