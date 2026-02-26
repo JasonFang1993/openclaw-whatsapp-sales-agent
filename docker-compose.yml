@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  waha:
+    image: devlikeapro/waha:latest
+    container_name: waha
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      - SESSION_STRATEGY=FILE
+      - WAHA_INCOMING_QUEUE=false
+      - WAHA_WEBHOOKS_URL=http://host.docker.internal:3000/webhook
+      - WAHA_SESSION_SAVE_INTERVAL=2000
+    volumes:
+      - ./waha-data:/app/sessions
+    restart: unless-stopped
+    network_mode: host
