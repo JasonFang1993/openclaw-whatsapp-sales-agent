@@ -1,10 +1,10 @@
 # 🎯 OpenClaw WhatsApp Sales Agent
 
-> 会学习、会成长的 AI 智能销售系统
+> 会学习，会成长的 AI 智能销售系统
 
 ## 📌 项目简介
 
-本项目旨在打造一个**会学习、会成长**的 AI 销售助手，通过 WhatsApp 与客户沟通，实现：
+本项目旨在打造一个**会学习，会成长**的 AI 销售助手，通过 WhatsApp 与客户沟通，实现：
 
 - ✅ 自动回复客户咨询
 - ✅ 智能识别客户阶段（初次接触 → 建立信任 → 意向确认 → 促成下单）
@@ -14,27 +14,30 @@
 ## 🏗️ 技术架构
 
 ```
-OpenClaw AI (大脑) → MCP Protocol → GOWA (手脚)
+用户 → WhatsApp → WAHA (REST API) → 后端服务 → MiniMax AI → 后端 → WAHA → 用户
 ```
 
 ### 核心组件
 
 | 组件 | 选择 | 理由 |
 |------|------|------|
-| **WhatsApp 自动化** | GOWA | MCP原生支持、40+工具、性能好 |
-| **AI Agent** | OpenClaw | 已有的能力、大脑决策 |
-| **集成方式** | MCP + REST + Webhook | 标准化、实时性、灵活性 |
+| **WhatsApp 自动化** | WAHA Core（免费） | REST API 开箱即用、Docker 部署 |
+| **AI** | MiniMax API | 免费额度、稳定快速 |
+| **后端** | Node.js + Express | 轻量、文档全 |
+| **数据库** | SQLite | MVP 阶段足够、免维护 |
+| **部署** | Docker Compose | 一键部署、跨平台 |
 
-### GOWA MCP 工具
+### WAHA 核心功能
 
-- 📱 连接管理 (5个)：QR登录、登出、重连
-- 💬 消息发送 (6个)：文本、图片、贴纸、联系人、链接、位置
-- 📋 聊天管理 (5个)：联系人列表、聊天列表、消息查询
-- 👥 群组管理 (13个)：创建群组、管理成员等
+- 📱 会话管理：多账号支持
+- 💬 消息收发：文本、图片、文件
+- 📋 聊天查询：消息历史
+- 🔄 Webhook：实时接收消息
 
 ## 📚 项目文档
 
 - [📖 项目方案](docs/PROJECT_PLAN.md) - 完整技术方案
+- [📋 版本管理](docs/VERSION.md) - 版本规划
 - [🚀 快速开始](docs/QUICK_START.md) - 开发环境搭建
 - [🏗️ 架构设计](docs/ARCHITECTURE.md) - 详细架构说明
 - [📋 API 文档](docs/API.md) - 接口文档
@@ -75,7 +78,7 @@ OpenClaw AI (大脑) → MCP Protocol → GOWA (手脚)
 
 - Docker & Docker Compose
 - Git
-- OpenClaw (已安装)
+- Node.js 18+
 - WhatsApp 账号 (用于测试)
 
 ### 本地开发
@@ -85,8 +88,8 @@ OpenClaw AI (大脑) → MCP Protocol → GOWA (手脚)
 git clone https://github.com/JasonFang1993/openclaw-whatsapp-sales-agent.git
 cd openclaw-whatsapp-sales-agent
 
-# 2. 启动开发环境
-docker-compose -f docker-compose.dev.yml up -d
+# 2. 启动 WAHA
+docker-compose up -d
 
 # 3. 配置环境变量
 cp .env.example .env
@@ -102,6 +105,7 @@ npm test
 openclaw-whatsapp-sales-agent/
 ├── docs/                    # 项目文档
 │   ├── PROJECT_PLAN.md     # 项目方案
+│   ├── VERSION.md          # 版本管理
 │   ├── QUICK_START.md      # 快速开始
 │   ├── ARCHITECTURE.md     # 架构设计
 │   ├── API.md              # API 文档
@@ -110,9 +114,9 @@ openclaw-whatsapp-sales-agent/
 │   └── OPERATIONS.md        # 运维手册
 ├── src/                    # 源代码
 │   ├── whatsapp/           # WhatsApp 集成
-│   ├── openclaw/          # OpenClaw Skill
-│   ├── learning/           # 学习系统
-│   └── api/               # API 服务
+│   ├── ai/                # AI 对话
+│   ├── api/                # API 服务
+│   └── utils/             # 工具函数
 ├── tests/                  # 测试代码
 ├── scripts/                # 脚本工具
 ├── docker-compose.yml     # Docker 配置
@@ -123,11 +127,15 @@ openclaw-whatsapp-sales-agent/
 
 ## 📦 版本规划
 
-| 版本 | 目标 | 时间 | 核心功能 |
+详见 [版本管理](docs/VERSION.md)
+
+| 版本 | 阶段 | 时间 | 核心功能 |
 |------|------|------|---------|
-| **MVP** | 验证可行性 | 2周 | 消息收发、AI 回复 |
-| **V1.0** | 完整功能 | 4周 | 销售流程、学习系统 |
-| **V2.0** | 优化提升 | 8周 | 转化率、数据分析 |
+| v0.1-v0.3 | MVP 原型 | 3周 | 消息收发、AI对话 |
+| v0.9 | MVP 预览 | 1周 | 测试、修复 |
+| v1.0.0 | MVP 发布 | - | 正式发布 |
+| v1.x | V1 阶段 | 6周 | 客户管理、转人工 |
+| v2.x | V2 阶段 | 8周 | 智能学习 |
 
 ## 🤝 贡献指南
 
@@ -157,4 +165,4 @@ openclaw-whatsapp-sales-agent/
 
 ---
 
-> 💡 **提示**：这是一个会学习、会成长的 AI 销售系统。随着对话数据的增加，它会越来越聪明，转化率会持续提升！
+> 💡 **提示**：这是一个会学习，会成长的 AI 销售系统。随着对话数据的增加，它会越来越聪明，转化率会持续提升！
